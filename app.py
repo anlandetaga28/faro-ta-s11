@@ -88,3 +88,8 @@ with pestana2:
 pestana3.write("Esta pestaña es para tu reto si es el 3, el 4 o el 5.")
 
 # >>> RETO 3, 4 y 5: si tu reto es el 3, el 4 o el 5, pega aquí el bloque de tu reto (solo uno)
+pestana3.subheader("Los 5 sectores más baratos (con muestra suficiente)")
+tabla = (filtrado.groupby("sector").agg(anuncios=("id", "count"), mediana_m2=("precio_m2", "median"))
+         .round(0).reset_index())
+tabla = tabla[tabla["anuncios"] >= min_anuncios].sort_values("mediana_m2").head(5)
+pestana3.dataframe(tabla, hide_index=True, width="stretch")
